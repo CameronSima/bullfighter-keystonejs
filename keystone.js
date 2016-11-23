@@ -49,6 +49,9 @@ keystone.set('nav', {
 	trades: 'trades'
 });
 
+keystone.set('cloudinary config', { cloud_name: 'dc3mumiki', api_key: '829877542929988', api_secret: 'nB8nfw_4wAyxkzOWiMDgRJrGMYk' });
+
+
 // Start Keystone to connect to your database and initialise the web server
 
 keystone.start();
