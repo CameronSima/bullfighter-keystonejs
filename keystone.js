@@ -12,7 +12,7 @@ var keystone = require('keystone');
 keystone.init({
 	'name': 'The Bullfighter',
 	'brand': 'The Bullfighter',
-
+	'cloudinary config': 'cloudinary://829877542929988:nB8nfw_4wAyxkzOWiMDgRJrGMYk@dc3mumiki',
 	'less': 'public',
 	'static': 'public',
 	'favicon': 'public/favicon.ico',
@@ -48,9 +48,6 @@ keystone.set('nav', {
 	users: 'users',
 	trades: 'trades'
 });
-
-keystone.set('cloudinary config', { cloud_name: 'dc3mumiki', api_key: '829877542929988', api_secret: 'nB8nfw_4wAyxkzOWiMDgRJrGMYk' });
-
 
 // Start Keystone to connect to your database and initialise the web server
 
