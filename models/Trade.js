@@ -28,5 +28,6 @@ Trade.schema.virtual('content.percentChange').get(function() {
 	return Math.abs(diff / this.content.boughtPrice * 100).toFixed(2)
 })
 
+Trade.schema.set('autoIndex', false)
 Trade.defaultColumns = 'title, state|20%, author|20%, publishedDate|20%'
 Trade.register()

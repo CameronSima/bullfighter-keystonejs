@@ -12,7 +12,6 @@ var PostCategory = new keystone.List('PostCategory', {
 PostCategory.add({
 	name: { type: String, required: true },
 });
-
+PostCategory.schema.set('autoIndex', false)
 PostCategory.relationship({ ref: 'Post', path: 'categories' });
-
 PostCategory.register();

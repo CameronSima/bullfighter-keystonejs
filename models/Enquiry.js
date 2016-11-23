@@ -24,6 +24,7 @@ Enquiry.add({
 	createdAt: { type: Date, default: Date.now },
 });
 
+Enquiry.schema.set('autoIndex', false)
 Enquiry.defaultSort = '-createdAt';
 Enquiry.defaultColumns = 'name, email, enquiryType, createdAt';
 Enquiry.register();
