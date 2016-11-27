@@ -34,3 +34,4 @@ User.relationship({ ref: 'Trade', path: 'trades', refPath: 'author' })
 User.schema.set('autoIndex', false)
 User.defaultColumns = 'name, email, isAdmin';
 User.register();
+

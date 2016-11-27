@@ -25,7 +25,7 @@ Trade.add({
 
 Trade.schema.virtual('content.percentChange').get(function() {
 	var diff = this.content.boughtPrice - this.content.soldPrice
-	return Math.abs(diff / this.content.boughtPrice * 100).toFixed(2)
+	return Math.abs(diff / this.content.boughtPrice * 100).toFixed(1)
 })
 
 Trade.schema.set('autoIndex', false)

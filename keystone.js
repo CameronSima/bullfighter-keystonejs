@@ -9,6 +9,11 @@ var keystone = require('keystone');
 // See http://keystonejs.com/guide/config for available options
 // and documentation.
 
+var myMongoose = require('mongoose')
+
+// init mongoose
+
+
 keystone.init({
 	'name': 'The Bullfighter',
 	'brand': 'The Bullfighter',
@@ -18,7 +23,7 @@ keystone.init({
 	'favicon': 'public/favicon.ico',
 	'views': 'templates/views',
 	'view engine': 'jade',
-
+	'mongoose': myMongoose,
 	'auto update': true,
 	'session': true,
 	'auth': true,

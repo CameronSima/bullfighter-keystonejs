@@ -13,13 +13,41 @@ mixin trade(trade)
 		table.table 
 			thead
 				tr
-					th Direction
-					th Symbol
-					th Bought Date
-					th Bought Price
-					th Sold Date
-					th Sold Price
+					th Direction 
+						a(href='/trades/sorted/direction/asc')
+							span.glyphicon.glyphicon-triangle-top
+						a(href='/trades/sorted/direction/desc')
+							span.glyphicon.glyphicon-triangle-bottom
+					th Symbol 
+						a(href='/trades/sorted/symbol/asc')
+							span.glyphicon.glyphicon-triangle-top
+						a(href='/trades/sorted/symbol/desc')
+							span.glyphicon.glyphicon-triangle-bottom
+					th Bought Date 
+						a(href='/trades/sorted/boughtDate/asc')
+							span.glyphicon.glyphicon-triangle-top
+						a(href='/trades/sorted/boughtDate/desc')
+							span.glyphicon.glyphicon-triangle-bottom
+					th Bought Price 
+						a(href='/trades/sorted/boughtPrice/asc')
+							span.glyphicon.glyphicon-triangle-top
+						a(href='/trades/sorted/boughtPrice/desc')
+							span.glyphicon.glyphicon-triangle-bottom
+					th Sold Date 
+						a(href='/trades/sorted/soldDate/asc')
+							span.glyphicon.glyphicon-triangle-top
+						a(href='/trades/sorted/soldDate/desc')
+							span.glyphicon.glyphicon-triangle-bottom
+					th Sold Price 
+						a(href='/trades/sorted/soldPrice/asc')
+							span.glyphicon.glyphicon-triangle-top
+						a(href='/trades/sorted/soldPrice/desc')
+							span.glyphicon.glyphicon-triangle-bottom
 					th Percent Change
+						a(href='/trades/sorted/percentChange/asc')
+							span.glyphicon.glyphicon-triangle-top
+						a(href='/trades/sorted/percentChange/desc')
+							span.glyphicon.glyphicon-triangle-bottom
 			tbody
 				tr
 					td #{trade.content.direction}
@@ -28,8 +56,7 @@ mixin trade(trade)
 					td #{trade._.content.boughtPrice.format()}
 					td #{trade._.content.soldDate.format('MM/DD/YYYY')}
 					td #{trade._.content.soldPrice.format()}
-					td #{trade.content.percentChange}
-		if trade.content.notes
+					td #{trade.content.percentChange}%
 			p.read-more: a(href='/trades/trade/' + trade.slug) Read More...
 
 
