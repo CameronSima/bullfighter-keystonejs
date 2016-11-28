@@ -1,5 +1,12 @@
 extends ../layouts/default
 
+block js
+
+	script.
+		var graphData = !{data.graphArr}
+
+	script(src='/js/graph.js')
+
 mixin trade(trade)
 	.post(data-ks-editable=editable(user, { list: 'Trade', id: trade.id }))
 		h2: a(href='/trades/trade/' + trade.slug)= trade.title

@@ -6,7 +6,7 @@ block content
 			p: a(href='/trades') &larr; back to trades
 			hr
 			if !data.trade
-				h2 This trade doesn't exist!
+				h2 This trade doesn't exist!			
 			else
 				header
 					h1= data.trade.title
@@ -18,6 +18,8 @@ block content
 				.post
 					if data.trade.image.exists
 						.image-wrap: img(src=data.trade._.image.fit(750, 450)).img-responsive
+
+					#chart_div
 
 					table.table 
 						thead
@@ -37,6 +39,7 @@ block content
 								td #{data.trade._.content.boughtPrice.format()}
 								td #{data.trade._.content.soldDate.format('MM/DD/YYYY')}
 								td #{data.trade._.content.soldPrice.format()}
+
 								td #{data.trade.content.percentChange}
 					.well 
 						!= data.trade.content.notes

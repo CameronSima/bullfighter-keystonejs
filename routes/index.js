@@ -39,7 +39,7 @@ exports = module.exports = function (app) {
 	app.get('/blog/post/:post', routes.views.post);
 	app.all('/contact', routes.views.contact);
 	app.get('/trades', routes.views.allTrades);
-	app.get('/trades/sorted/:sortParam/:direction', routes.views.sortedTrades);
+	app.get('/trades/sorted/:sortParam/:direction', routes.views.allTrades);
 	app.get('/trades/trade/:trade', routes.views.trade);
 
 
