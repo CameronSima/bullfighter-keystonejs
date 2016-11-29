@@ -16,10 +16,10 @@ Trade.add({
 		notes: { type: Types.Html, wysiwyg: true, height: 400 },
 		direction: { type: Types.Select, options: 'LONG, SHORT' },
 		symbol: { type: Types.Text },
-		boughtDate: { type: Types.Datetime, default: Date.now(), dependsOn: {state: 'published'}, required: true },
-		soldDate: { type: Types.Datetime, default: Date.now(), dependsOn: {state: 'published'}, required: true },
-		boughtPrice: { type: Types.Money, format: '$0,0.00', default: 0, dependsOn: {state: 'published'}, required: true },
-		soldPrice: { type: Types.Money, format: '$0,0.00', default: 0, dependsOn: {state: 'published'}, required: true },
+		boughtDate: { type: Types.Datetime, default: Date.now(), initial: true, dependsOn: {state: 'published'}, required: true },
+		soldDate: { type: Types.Datetime, default: Date.now(), initial: true, dependsOn: {state: 'published'}, required: true },
+		boughtPrice: { type: Types.Money, format: '$0,0.00', initial: true, default: 0, dependsOn: {state: 'published'}, required: true },
+		soldPrice: { type: Types.Money, format: '$0,0.00', initial: true, default: 0, dependsOn: {state: 'published'}, required: true },
 	}
 })
 
@@ -29,6 +29,6 @@ Trade.schema.virtual('content.percentChange').get(function() {
 })
 
 
-Trade.schema.set('autoIndex', false)
+
 Trade.defaultColumns = 'title, state|20%, author|20%, publishedDate|20%'
 Trade.register()

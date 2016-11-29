@@ -46,10 +46,13 @@ exports = module.exports = function (req, res) {
 					return a.content.soldDate.getTime() - b.content.soldDate.getTime()
 				})
 
-				// get graph data
+				// get graph data array
 				var graphArr =_.map(sortedBySoldDate, function(trade) {
 					var currentBank = trade.author.startingBank + (trade.content.boughtPrice - trade.content.soldPrice)
-					return [trade.content.soldDate, currentBank]
+					var date = trade.content.soldDate.toLocaleDateString()
+					var time = trade.content.soldDate.toLocaleTimeString().split(':')
+					time = time[0] + ':' + time[1] + time[2].split(' ')[1]
+					return [date + ' ' + time, currentBank]
 				})
 				
 				locals.data.graphData = graphArr

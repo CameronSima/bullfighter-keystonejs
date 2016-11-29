@@ -51,7 +51,8 @@ keystone.set('nav', {
 	posts: ['posts', 'post-categories'],
 	enquiries: 'enquiries',
 	users: 'users',
-	trades: 'trades'
+	trades: 'trades',
+	fullGraph: 'trades'
 });
 
 // Start Keystone to connect to your database and initialise the web server

@@ -85,6 +85,7 @@ block content
 					h4.text-weight-normal Showing #{utils.plural(data.trades.results.length, '* trade')}.
 				.blog
 
+					p.text-muted(style="font-style:italic") Graph for current selections of trades. Click for full history.
 					#chart_div
 					
 					each trade in data.trades.results
