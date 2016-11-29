@@ -38,12 +38,21 @@ exports = module.exports = function (req, res) {
 		})
 			.sort(sortParam)
 			.populate('author')
-
+			
 			q.exec(function(err, results) {
+				
+				// re-sort results on soldDate for proper display in graph
+				var sortedBySoldDate = results.results.sort(function(a, b) {
+					return a.content.soldDate.getTime() - b.content.soldDate.getTime()
+				})
 
 				// get graph data
+				var graphArr =_.map(sortedBySoldDate, function(trade) {
+					var currentBank = trade.author.startingBank + (trade.content.boughtPrice - trade.content.soldPrice)
+					return [trade.content.soldDate, currentBank]
+				})
 				
-
+				locals.data.graphData = graphArr
 				locals.data.trades = results
 				next(err)
 			})

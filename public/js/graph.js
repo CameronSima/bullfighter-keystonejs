@@ -7,12 +7,14 @@ google.charts.load('current', {'packages':['corechart', 'line']});
       // instantiates the pie chart, passes in the data and
       // draws it.
       function drawChart() {
+      	// graphData.forEach(function(arr) {
+      	// 	arr[0] = new Date(arr[0])
+      	// })
 
       	console.log(graphData)
-
         // Create the data table.
         var data = new google.visualization.DataTable();
-        data.addColumn('date', 'X');
+        data.addColumn('string', 'X');
         data.addColumn('number', 'Price');
      
         data.addRows(graphData)
@@ -23,7 +25,7 @@ google.charts.load('current', {'packages':['corechart', 'line']});
 	          title: 'Time'
 	        },
 	        vAxis: {
-	          title: 'Price'
+	          title: 'Bank'
 	        }
 	      };
 

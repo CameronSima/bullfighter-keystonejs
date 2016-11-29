@@ -16,10 +16,10 @@ Trade.add({
 		notes: { type: Types.Html, wysiwyg: true, height: 400 },
 		direction: { type: Types.Select, options: 'LONG, SHORT' },
 		symbol: { type: Types.Text },
-		boughtDate: { type: Types.Date },
-		soldDate: { type: Types.Date },
-		boughtPrice: { type: Types.Money, format: '$0,0.00' },
-		soldPrice: { type: Types.Money, format: '$0,0.00' },
+		boughtDate: { type: Types.Datetime, default: Date.now(), dependsOn: {state: 'published'}, required: true },
+		soldDate: { type: Types.Datetime, default: Date.now(), dependsOn: {state: 'published'}, required: true },
+		boughtPrice: { type: Types.Money, format: '$0,0.00', default: 0, dependsOn: {state: 'published'}, required: true },
+		soldPrice: { type: Types.Money, format: '$0,0.00', default: 0, dependsOn: {state: 'published'}, required: true },
 	}
 })
 
@@ -27,6 +27,7 @@ Trade.schema.virtual('content.percentChange').get(function() {
 	var diff = this.content.boughtPrice - this.content.soldPrice
 	return Math.abs(diff / this.content.boughtPrice * 100).toFixed(1)
 })
+
 
 Trade.schema.set('autoIndex', false)
 Trade.defaultColumns = 'title, state|20%, author|20%, publishedDate|20%'

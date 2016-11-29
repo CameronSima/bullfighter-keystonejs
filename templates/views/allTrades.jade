@@ -3,7 +3,7 @@ extends ../layouts/default
 block js
 
 	script.
-		var graphData = !{data.graphArr}
+		var graphData = !{JSON.stringify(data.graphData)}
 
 	script(src='/js/graph.js')
 
@@ -84,6 +84,9 @@ block content
 				else
 					h4.text-weight-normal Showing #{utils.plural(data.trades.results.length, '* trade')}.
 				.blog
+
+					#chart_div
+					
 					each trade in data.trades.results
 						+trade(trade)
 
