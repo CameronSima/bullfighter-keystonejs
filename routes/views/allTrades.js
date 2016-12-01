@@ -9,6 +9,10 @@ exports = module.exports = function (req, res) {
 	var locals = res.locals
 
 	locals.section = 'trades'
+	locals.filters = {
+		direction: req.params.direction,
+		sortParam: req.params.sortParam
+	}
 	locals.data = {
 		trades: [],
 		graphArr: []
@@ -17,13 +21,13 @@ exports = module.exports = function (req, res) {
 	view.on('init', function(next) {
 
 		var direction, sortParam
-		if (req.params.direction && req.params.sortParam) {
-			if (req.params.direction === 'desc') {
+		if (locals.filters.direction && locals.filters.sortParam) {
+			if (locals.filters.direction === 'desc') {
 				direction = '-'
 			} else {
 				direction = ''
 			}
-			sortParam = direction + 'content.' + req.params.sortParam
+			sortParam = direction + 'content.' + locals.filters.sortParam
 		} else {
 			sortParam = '-publishedDate'
 		}
@@ -48,13 +52,13 @@ exports = module.exports = function (req, res) {
 
 				// get graph data array
 				var graphArr =_.map(sortedBySoldDate, function(trade) {
-					var currentBank = trade.author.startingBank + (trade.content.boughtPrice - trade.content.soldPrice)
+					var currentBank = trade.content.numberBought * (trade.content.boughtPrice - trade.content.soldPrice) + trade.author.startingBank
 					var date = trade.content.soldDate.toLocaleDateString()
 					var time = trade.content.soldDate.toLocaleTimeString().split(':')
 					time = time[0] + ':' + time[1] + time[2].split(' ')[1]
 					return [date + ' ' + time, currentBank]
 				})
-				
+				console.log(results)
 				locals.data.graphData = graphArr
 				locals.data.trades = results
 				next(err)

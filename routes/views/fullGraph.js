@@ -20,7 +20,7 @@ exports = module.exports = function (req, res) {
 			.populate('author')
 			.exec(function (err, results) {
 				var graphArr = _.map(results, function(trade) {
-					var currentBank = trade.author.startingBank + (trade.content.boughtPrice - trade.content.soldPrice)
+					var currentBank = trade.content.numberBought * (trade.content.boughtPrice - trade.content.soldPrice) + trade.author.startingBank
 					var date = trade.content.soldDate.toLocaleDateString()
 					var time = trade.content.soldDate.toLocaleTimeString().split(':')
 					time = time[0] + ':' + time[1] + time[2].split(' ')[1]

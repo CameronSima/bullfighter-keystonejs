@@ -28,8 +28,6 @@ google.charts.load('current', {'packages':['corechart', 'line']});
       // draws it.
       function drawChart() {
 
-      	console.log(graphData)
-      	console.log(fullWidth)
         // Create the data table.
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'X');

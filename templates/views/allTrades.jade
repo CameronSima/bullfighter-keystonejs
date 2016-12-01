@@ -4,6 +4,7 @@ block js
 
 	script.
 		var graphData = !{JSON.stringify(data.graphData)}
+		var fullWidth = null
 
 	script(src='/js/graph.js')
 
@@ -21,40 +22,47 @@ mixin trade(trade)
 			thead
 				tr
 					th Direction 
-						a(href='/trades/sorted/direction/asc')
-							span.glyphicon.glyphicon-triangle-top
-						a(href='/trades/sorted/direction/desc')
-							span.glyphicon.glyphicon-triangle-bottom
+						div
+							a(href='/trades/sorted/direction/asc')
+								span.glyphicon.glyphicon-triangle-top
+							a(href='/trades/sorted/direction/desc')
+								span.glyphicon.glyphicon-triangle-bottom
 					th Symbol 
-						a(href='/trades/sorted/symbol/asc')
-							span.glyphicon.glyphicon-triangle-top
-						a(href='/trades/sorted/symbol/desc')
-							span.glyphicon.glyphicon-triangle-bottom
+						div
+							a(href='/trades/sorted/symbol/asc')
+								span.glyphicon.glyphicon-triangle-top
+							a(href='/trades/sorted/symbol/desc')
+								span.glyphicon.glyphicon-triangle-bottom
 					th Bought Date 
-						a(href='/trades/sorted/boughtDate/asc')
-							span.glyphicon.glyphicon-triangle-top
-						a(href='/trades/sorted/boughtDate/desc')
-							span.glyphicon.glyphicon-triangle-bottom
+						div 
+							a(href='/trades/sorted/boughtDate/asc')
+								span.glyphicon.glyphicon-triangle-top
+							a(href='/trades/sorted/boughtDate/desc')
+								span.glyphicon.glyphicon-triangle-bottom
 					th Bought Price 
-						a(href='/trades/sorted/boughtPrice/asc')
-							span.glyphicon.glyphicon-triangle-top
-						a(href='/trades/sorted/boughtPrice/desc')
-							span.glyphicon.glyphicon-triangle-bottom
+						div
+							a(href='/trades/sorted/boughtPrice/asc')
+								span.glyphicon.glyphicon-triangle-top
+							a(href='/trades/sorted/boughtPrice/desc')
+								span.glyphicon.glyphicon-triangle-bottom
 					th Sold Date 
-						a(href='/trades/sorted/soldDate/asc')
-							span.glyphicon.glyphicon-triangle-top
-						a(href='/trades/sorted/soldDate/desc')
-							span.glyphicon.glyphicon-triangle-bottom
+						div
+							a(href='/trades/sorted/soldDate/asc')
+								span.glyphicon.glyphicon-triangle-top
+							a(href='/trades/sorted/soldDate/desc')
+								span.glyphicon.glyphicon-triangle-bottom
 					th Sold Price 
-						a(href='/trades/sorted/soldPrice/asc')
-							span.glyphicon.glyphicon-triangle-top
-						a(href='/trades/sorted/soldPrice/desc')
-							span.glyphicon.glyphicon-triangle-bottom
+						div
+							a(href='/trades/sorted/soldPrice/asc')
+								span.glyphicon.glyphicon-triangle-top
+							a(href='/trades/sorted/soldPrice/desc')
+								span.glyphicon.glyphicon-triangle-bottom
 					th Percent Change
-						a(href='/trades/sorted/percentChange/asc')
-							span.glyphicon.glyphicon-triangle-top
-						a(href='/trades/sorted/percentChange/desc')
-							span.glyphicon.glyphicon-triangle-bottom
+						div
+							a(href='/trades/sorted/percentChange/asc')
+								span.glyphicon.glyphicon-triangle-top
+							a(href='/trades/sorted/percentChange/desc')
+								span.glyphicon.glyphicon-triangle-bottom
 			tbody
 				tr
 					td #{trade.content.direction}
@@ -64,7 +72,7 @@ mixin trade(trade)
 					td #{trade._.content.soldDate.format('MM/DD/YYYY')}
 					td #{trade._.content.soldPrice.format()}
 					td #{trade.content.percentChange}%
-			p.read-more: a(href='/trades/trade/' + trade.slug) Read More...
+	p.read-more: a(href='/trades/trade/' + trade.slug) Read More...
 
 
 block intro
@@ -76,17 +84,20 @@ block content
 		.col-sm-8.col-md-9
 			if data.trades.results.length
 				if data.trades.totalPages > 1
-					h4.text-weight-normal Showing
-						strong #{data.trades.first}
-						| to
-						strong #{data.trades.total}
+					h4.text-weight-normal Showing 
+						strong #{data.trades.first} 
+						| to 
+						strong #{data.trades.last} 
+						| of 
+						strong #{data.trades.total} 
 						| trades.
 				else
 					h4.text-weight-normal Showing #{utils.plural(data.trades.results.length, '* trade')}.
 				.blog
 
 					p.text-muted(style="font-style:italic") Graph for current selections of trades. Click for full history.
-					#chart_div
+					a(href='/full_history')
+						#chart_div
 					
 					each trade in data.trades.results
 						+trade(trade)
