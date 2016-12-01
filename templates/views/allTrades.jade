@@ -33,6 +33,12 @@ mixin trade(trade)
 								span.glyphicon.glyphicon-triangle-top
 							a(href='/trades/sorted/symbol/desc')
 								span.glyphicon.glyphicon-triangle-bottom
+					th Shares Bought
+						div
+							a(href='/trades/sorted/numberBought/asc')
+								span.glyphicon.glyphicon-triangle-top
+							a(href='/trades/sorted/numberBought/desc')
+								span.glyphicon.glyphicon-triangle-bottom
 					th Bought Date 
 						div 
 							a(href='/trades/sorted/boughtDate/asc')
@@ -63,15 +69,23 @@ mixin trade(trade)
 								span.glyphicon.glyphicon-triangle-top
 							a(href='/trades/sorted/percentChange/desc')
 								span.glyphicon.glyphicon-triangle-bottom
+					th New Balance
+						div
+							a(href='trades/sorted/balance/asc')
+								span.glyphicon.glyphicon-triange-bottom
+							a(href='trades/sorted/balance/desc')
+								span.glyphicon.glyphicon-triange-top
 			tbody
 				tr
 					td #{trade.content.direction}
 					td #{trade.content.symbol}
+					td #{trade.content.numberBought}
 					td #{trade._.content.boughtDate.format('MM/DD/YYYY')}
 					td #{trade._.content.boughtPrice.format()}
 					td #{trade._.content.soldDate.format('MM/DD/YYYY')}
 					td #{trade._.content.soldPrice.format()}
 					td #{trade.content.percentChange}%
+					td #{trade.content.balance}
 	p.read-more: a(href='/trades/trade/' + trade.slug) Read More...
 
 

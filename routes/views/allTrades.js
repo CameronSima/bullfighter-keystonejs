@@ -31,7 +31,7 @@ exports = module.exports = function (req, res) {
 		} else {
 			sortParam = '-publishedDate'
 		}
-
+		console.log(sortParam)
 		var q = keystone.list('Trade').paginate({
 			page: req.query.page || 1,
 			perPage: 10,
@@ -44,15 +44,16 @@ exports = module.exports = function (req, res) {
 			.populate('author')
 			
 			q.exec(function(err, results) {
-				
+
 				// re-sort results on soldDate for proper display in graph
-				var sortedBySoldDate = results.results.sort(function(a, b) {
+				var trades = results.results.slice(0)
+				trades.sort(function(a, b) {
 					return a.content.soldDate.getTime() - b.content.soldDate.getTime()
 				})
 
 				// get graph data array
-				var graphArr =_.map(sortedBySoldDate, function(trade) {
-					var currentBank = trade.content.numberBought * (trade.content.boughtPrice - trade.content.soldPrice) + trade.author.startingBank
+				var graphArr =_.map(trades, function(trade) {
+					var currentBank = (trade.content.numberBought * (trade.content.boughtPrice - trade.content.soldPrice)) + trade.author.balance
 					var date = trade.content.soldDate.toLocaleDateString()
 					var time = trade.content.soldDate.toLocaleTimeString().split(':')
 					time = time[0] + ':' + time[1] + time[2].split(' ')[1]
@@ -60,6 +61,7 @@ exports = module.exports = function (req, res) {
 				})
 				locals.data.graphData = graphArr
 				locals.data.trades = results
+				console.log(results)
 				next(err)
 			})
 	})

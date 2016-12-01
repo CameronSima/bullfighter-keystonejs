@@ -1,4 +1,6 @@
 var keystone = require('keystone')
+var async = require('async')
+
 var Types = keystone.Field.Types
 
 var Trade = new keystone.List('Trade', {
@@ -21,12 +23,36 @@ Trade.add({
 		soldDate: { type: Types.Datetime, required: true, initial: true, },
 		boughtPrice: { type: Types.Money, format: '$0,0.00', required: true, initial: true, },
 		soldPrice: { type: Types.Money, format: '$0,0.00', required: true, initial: true, },
+		percentChange:  { type: Types.Number, hidden: true },
+		balance: { type: Types.Money, format: '$0,0.00' }
 	}
 })
 
-Trade.schema.virtual('content.percentChange').get(function() {
+Trade.schema.pre('save', function(next) {
 	var diff = this.content.boughtPrice - this.content.soldPrice
-	return Math.abs(diff / this.content.boughtPrice * 100).toFixed(1)
+	this.content.percentChange = Math.abs(diff / this.content.boughtPrice * 100).toFixed(1)
+	next()
+})
+
+Trade.schema.pre('save', function(next) {
+
+	var self = this
+	keystone.list('User').model.findOne({
+		author: this.author._id
+	})
+	.exec(function(err, user) {
+
+		var newBalance = (self.content.numberBought * (self.content.boughtPrice - self.content.soldPrice)) + user.balance
+		user.balance = newBalance
+		self.content.balance = newBalance
+		user.save(function(err, user) {
+			if (err) {
+				console.log(err)
+			} else {
+				next(err)
+			}
+		})
+	})
 })
 
 

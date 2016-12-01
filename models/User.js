@@ -11,7 +11,7 @@ User.add({
 	name: { type: Types.Name, required: true, index: true },
 	email: { type: Types.Email, initial: true, required: true, index: true },
 	password: { type: Types.Password, initial: true, required: true },
-	startingBank: { type: Types.Money, format: '$0,0.00' },
+	balance: { type: Types.Money, format: '$0,0.00', default: 0 }
 }, 'Permissions', {
 	isAdmin: { type: Boolean, label: 'Can access Keystone', index: true }
 });
@@ -21,13 +21,11 @@ User.schema.virtual('canAccessKeystone').get(function () {
 	return this.isAdmin;
 });
 
-
 /**
  * Relationships
  */
 User.relationship({ ref: 'Post', path: 'posts', refPath: 'author' });
 User.relationship({ ref: 'Trade', path: 'trades', refPath: 'author' })
-
 
 /**
  * Registration
