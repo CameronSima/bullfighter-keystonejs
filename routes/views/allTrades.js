@@ -58,7 +58,6 @@ exports = module.exports = function (req, res) {
 					time = time[0] + ':' + time[1] + time[2].split(' ')[1]
 					return [date + ' ' + time, currentBank]
 				})
-				console.log(results)
 				locals.data.graphData = graphArr
 				locals.data.trades = results
 				next(err)
