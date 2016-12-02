@@ -34,6 +34,7 @@ Trade.schema.pre('save', function(next) {
 	next()
 })
 
+// Update User's balance, and add the balance to trade
 Trade.schema.pre('save', function(next) {
 
 	var self = this
@@ -42,7 +43,7 @@ Trade.schema.pre('save', function(next) {
 	})
 	.exec(function(err, user) {
 
-		var newBalance = (self.content.numberBought * (self.content.boughtPrice - self.content.soldPrice)) + user.balance
+		var newBalance = (self.content.numberBought * (self.content.soldPrice - self.content.boughtPrice)) + user.balance
 		user.balance = newBalance
 		self.content.balance = newBalance
 		user.save(function(err, user) {
