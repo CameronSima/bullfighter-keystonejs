@@ -16,8 +16,8 @@ Trade.add({
 	image: { type: Types.CloudinaryImage },
 	content: {
 		notes: { type: Types.Html, wysiwyg: true, height: 400 },
-		direction: { type: Types.Select, options: 'LONG, SHORT' },
-		symbol: { type: Types.Text },
+		direction: { type: Types.Select, options: 'LONG, SHORT', initial: true },
+		symbol: { type: Types.Text, initial: true },
 		numberBought: { type: Types.Number, required: true, initial: true },
 		boughtDate: { type: Types.Datetime, required: true, initial: true, },
 		soldDate: { type: Types.Datetime, required: true, initial: true, },
@@ -45,11 +45,11 @@ Trade.schema.pre('save', function(next) {
 
 		var newBalance = (self.content.numberBought * (self.content.soldPrice - self.content.boughtPrice)) + user.balance
 		user.balance = newBalance
-		self.content.balance = newBalance
 		user.save(function(err, user) {
 			if (err) {
 				console.log(err)
 			} else {
+				self.content.balance = newBalance
 				next(err)
 			}
 		})

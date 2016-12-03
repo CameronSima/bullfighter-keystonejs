@@ -18,6 +18,25 @@ exports = module.exports = function (req, res) {
 		graphArr: []
 	}
 
+	// get graph data
+	view.on('init', function (next) {
+
+		keystone.list('Trade').model
+			.find()
+			.where('state', 'published')
+			.sort('soldDate')
+			.populate('author')
+			.exec(function (err, results) {
+				var graphArr = _.map(results, function(trade) {
+					var date = trade.content.soldDate.toLocaleDateString()
+					return [date, trade.content.balance]
+				})
+				locals.data.graphArr = graphArr
+
+				next(err)
+			})
+	})
+
 	view.on('init', function(next) {
 
 		var direction, sortParam
@@ -31,7 +50,7 @@ exports = module.exports = function (req, res) {
 		} else {
 			sortParam = '-publishedDate'
 		}
-		console.log(sortParam)
+
 		var q = keystone.list('Trade').paginate({
 			page: req.query.page || 1,
 			perPage: 10,
@@ -45,20 +64,20 @@ exports = module.exports = function (req, res) {
 			
 			q.exec(function(err, results) {
 
-				// re-sort results on soldDate for proper display in graph
-				var trades = results.results.slice(0)
-				trades.sort(function(a, b) {
-					return a.content.soldDate.getTime() - b.content.soldDate.getTime()
-				})
+				// // re-sort results on soldDate for proper display in graph
+				// var trades = results.results.slice(0)
+				// trades.sort(function(a, b) {
+				// 	return a.content.soldDate.getTime() - b.content.soldDate.getTime()
+				// })
 
-				// get graph data array
-				var graphArr =_.map(trades, function(trade) {
-				var date = trade.content.soldDate.toLocaleDateString()
-					var time = trade.content.soldDate.toLocaleTimeString().split(':')
-					time = time[0] + ':' + time[1] + time[2].split(' ')[1]
-					return [date + ' ' + time, trade.content.balance]
-				})
-				locals.data.graphData = graphArr
+				// // get graph data array
+				// var graphArr =_.map(trades, function(trade) {
+				// var date = trade.content.soldDate.toLocaleDateString()
+				// 	var time = trade.content.soldDate.toLocaleTimeString().split(':')
+				// 	time = time[0] + ':' + time[1] + time[2].split(' ')[1]
+				// 	return [date + ' ' + time, trade.content.balance]
+				// })
+				// locals.data.graphData = graphArr
 				locals.data.trades = results
 				next(err)
 			})

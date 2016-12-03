@@ -1,0 +1,18 @@
+.read-more:hover {
+	cursor: pointer;
+	color: #e22620;
+  text-decoration: underline;
+}
+
+.read-more {
+	text-decoration: none;
+	color: #eb6864;
+}
+
+.notes {
+	display: none;
+}
+
+.notesImg {
+	margin: 0 auto;
+}

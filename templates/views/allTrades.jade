@@ -3,19 +3,16 @@ extends ../layouts/default
 block js
 
 	script.
-		var graphData = !{JSON.stringify(data.graphData)}
-		var fullWidth = null
+		var graphData = !{JSON.stringify(data.graphArr)}
 
 	script(src='/js/graph.js')
+	script(src='/js/functions.js')
 
 mixin trade(trade)
 	.post(data-ks-editable=editable(user, { list: 'Trade', id: trade.id }))
-		h2: a(href='/trades/trade/' + trade.slug)= trade.title
 		p.lead.text-muted Posted 
 			if trade.publishedDate
 				| on #{trade._.publishedDate.format('MMMM Do, YYYY')} 
-			if trade.author
-				| by #{trade.author.name.first}
 		table.table 
 			thead
 				tr
@@ -78,18 +75,27 @@ mixin trade(trade)
 					td #{trade.content.direction}
 					td #{trade.content.symbol}
 					td #{trade.content.numberBought}
-					td #{trade._.content.boughtDate.format('MM/DD/YYYY')}
+					td #{trade._.content.boughtDate.format('MM/DD/YYYY, H:mm')} EST
 					td #{trade._.content.boughtPrice.format()}
-					td #{trade._.content.soldDate.format('MM/DD/YYYY')}
+					td #{trade._.content.soldDate.format('MM/DD/YYYY, H:mm')} EST
 					td #{trade._.content.soldPrice.format()}
 					td #{trade.content.percentChange}%
-					td #{trade.content.balance}
-	p.read-more: a(href='/trades/trade/' + trade.slug) Read More...
-
+					td $#{trade.content.balance}
+	p.read-more(
+		onclick='toggle("#{trade._id}")'
+		id='toggle_link_#{trade._id}'
+		) Read More...
+	.well.notes(id='notes_#{trade._id}')
+		if trade.image.exists
+			.image-wrap: img(src=trade._.image.fit(375, 225)).img-responsive.notesImg
+		br
+		!= trade.content.notes
 
 block intro
 	.container
 		h1= 'Trades'
+		p.text-muted(style="font-style:italic") Account balance.
+		#chart_div
 
 block content
 	.container: .row
@@ -105,12 +111,7 @@ block content
 						| trades.
 				else
 					h4.text-weight-normal Showing #{utils.plural(data.trades.results.length, '* trade')}.
-				.blog
-
-					p.text-muted(style="font-style:italic") Graph for current selections of trades. Click for full history.
-					a(href='/full_history')
-						#chart_div
-					
+				.blog				
 					each trade in data.trades.results
 						+trade(trade)
 
