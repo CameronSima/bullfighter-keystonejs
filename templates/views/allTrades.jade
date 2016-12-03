@@ -16,8 +16,6 @@ mixin trade(trade)
 				| on #{trade._.publishedDate.format('MMMM Do, YYYY')} 
 			if trade.author
 				| by #{trade.author.name.first}
-			if trade.image.exists
-				img(src=trade.image.fit(160, 160)).img.pull-right
 		table.table 
 			thead
 				tr
