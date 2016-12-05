@@ -1,7 +1,7 @@
 var keystone = require('keystone')
-var async = require('async')
 
 var Types = keystone.Field.Types
+
 
 var Trade = new keystone.List('Trade', {
 	map: { name: 'title' },
@@ -14,6 +14,7 @@ Trade.add({
 	author: { type: Types.Relationship, ref: 'User', required: true, initial: true, index: true },
 	publishedDate: { type: Types.Date, index: true, dependsOn: { state: 'published' }},
 	image: { type: Types.CloudinaryImage },
+	dateGroup: { type: String, hidden: true },
 	content: {
 		notes: { type: Types.Html, wysiwyg: true, height: 400 },
 		direction: { type: Types.Select, options: 'LONG, SHORT', initial: true },
@@ -28,6 +29,21 @@ Trade.add({
 	}
 })
 
+// save dateGroup
+Trade.schema.pre('save', function(next) {
+	if (this.publishedDate) {
+
+		var month = this.publishedDate.getMonth()
+		var year = this.publishedDate.getFullYear()
+		this.dateGroup = month + '/' + year
+		next()
+
+	} else {
+		next()
+	}
+})
+
+// calculate percentage change
 Trade.schema.pre('save', function(next) {
 	var diff = this.content.boughtPrice - this.content.soldPrice
 	this.content.percentChange = Math.abs(diff / this.content.boughtPrice * 100).toFixed(1)

@@ -64,7 +64,7 @@ mixin trade(trade)
 								span.glyphicon.glyphicon-triangle-top
 							a(href='/trades/sorted/percentChange/desc')
 								span.glyphicon.glyphicon-triangle-bottom
-					th New Balance
+					th Balance
 						div
 							a(href='trades/sorted/balance/asc')
 								span.glyphicon.glyphicon-triange-bottom
@@ -80,7 +80,7 @@ mixin trade(trade)
 					td #{trade._.content.soldDate.format('MM/DD/YYYY, H:mm')} EST
 					td #{trade._.content.soldPrice.format()}
 					td #{trade.content.percentChange}%
-					td $#{trade.content.balance}
+					td $#{trade.content.balance.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}
 	p.read-more(
 		onclick='toggle("#{trade._id}")'
 		id='toggle_link_#{trade._id}'
@@ -111,7 +111,7 @@ block content
 						| trades.
 				else
 					h4.text-weight-normal Showing #{utils.plural(data.trades.results.length, '* trade')}.
-				.blog				
+				.blog
 					each trade in data.trades.results
 						+trade(trade)
 
