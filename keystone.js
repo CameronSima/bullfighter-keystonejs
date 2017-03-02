@@ -26,6 +26,7 @@ keystone.init({
 	'mongoose': myMongoose,
 	'auto update': true,
 	'session': true,
+	'session store': 'connect-mongo',
 	'auth': true,
 	'user model': 'User',
 });

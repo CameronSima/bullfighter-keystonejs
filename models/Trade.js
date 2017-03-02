@@ -21,9 +21,9 @@ Trade.add({
 		symbol: { type: Types.Text, initial: true },
 		numberBought: { type: Types.Number, required: true, initial: true },
 		boughtDate: { type: Types.Datetime, required: true, initial: true, },
-		soldDate: { type: Types.Datetime, required: true, initial: true, },
+		soldDate: { type: Types.Datetime },
 		boughtPrice: { type: Types.Money, format: '$0,0.00', required: true, initial: true, },
-		soldPrice: { type: Types.Money, format: '$0,0.00', required: true, initial: true, },
+		soldPrice: { type: Types.Money, format: '$0,0.00' },
 		percentChange:  { type: Types.Number, hidden: true },
 		balance: { type: Types.Money, format: '$0,0.00' }
 	}
@@ -37,7 +37,6 @@ Trade.schema.pre('save', function(next) {
 		var year = this.publishedDate.getFullYear()
 		this.dateGroup = month + '/' + year
 		next()
-
 	} else {
 		next()
 	}
