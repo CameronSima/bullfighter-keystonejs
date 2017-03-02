@@ -52,13 +52,28 @@ Trade.schema.pre('save', function(next) {
 // Update User's balance, and add the balance to trade
 Trade.schema.pre('save', function(next) {
 
+	console.log(this.isNew)
+
+	// Only update balance if the this is a new trade.
+	if (!this.isNew) {
+		next()
+	}
+
+	
+
 	var self = this
 	keystone.list('User').model.findOne({
 		author: this.author._id
 	})
 	.exec(function(err, user) {
+		var newBalance
 
-		var newBalance = (self.content.numberBought * (self.content.soldPrice - self.content.boughtPrice)) + user.balance
+		if (!self.content.soldPrice) {
+			newBalance = self.content.numberBought * self.content.boughtPrice - user.balance
+		} else {
+			newBalance = (self.content.numberBought * (self.content.soldPrice - self.content.boughtPrice)) + user.balance
+		}
+
 		user.balance = newBalance
 		user.save(function(err, user) {
 			if (err) {
