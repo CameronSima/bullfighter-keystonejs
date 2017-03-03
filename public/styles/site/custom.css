@@ -16,3 +16,8 @@
 .notesImg {
 	margin: 0 auto;
 }
+
+.link_logo {
+	margin: 10px;
+	display: inline-block;
+}
