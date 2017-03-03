@@ -20,4 +20,10 @@
 .link_logo {
 	margin: 10px;
 	display: inline-block;
+	float: right;
+	margin-top: 50px;
+}
+
+#main_title {
+	display: inline-block;
 }
