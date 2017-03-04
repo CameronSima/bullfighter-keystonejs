@@ -11,7 +11,7 @@ var Trade = new keystone.List('Trade', {
 Trade.add({
 	title: { type: String, required: true },
 	state: { type: Types.Select, options: 'draft, published, archived', default: 'draft', index: true },
-	sold: { type: Tyoes.Boolean, default: false, hidden: true },
+	sold: { type: Boolean, default: false, hidden: true },
 	author: { type: Types.Relationship, ref: 'User', required: true, initial: true, index: true },
 	publishedDate: { type: Types.Date, index: true, dependsOn: { state: 'published' }},
 	image: { type: Types.CloudinaryImage },
