@@ -11,6 +11,7 @@ var Trade = new keystone.List('Trade', {
 Trade.add({
 	title: { type: String, required: true },
 	state: { type: Types.Select, options: 'draft, published, archived', default: 'draft', index: true },
+	sold: { type: Boolean, default: false, hidden: true },
 	author: { type: Types.Relationship, ref: 'User', required: true, initial: true, index: true },
 	publishedDate: { type: Types.Date, index: true, dependsOn: { state: 'published' }},
 	image: { type: Types.CloudinaryImage },
@@ -52,8 +53,8 @@ Trade.schema.pre('save', function(next) {
 // Update User's balance, and add the balance to trade
 Trade.schema.pre('save', function(next) {
 
-	// Only update balance if the this is a new trade.
-	if (!this.isNew) {
+	// Only update balance if the this trade hasn't been sold.
+	if (this.sold) {
 		next()
 	}
 
@@ -67,6 +68,7 @@ Trade.schema.pre('save', function(next) {
 		if (!self.content.soldPrice) {
 			newBalance = self.content.numberBought * self.content.boughtPrice - user.balance
 		} else {
+			self.sold = true
 			newBalance = (self.content.numberBought * (self.content.soldPrice - self.content.boughtPrice)) + user.balance
 		}
 
