@@ -7,18 +7,16 @@ exports = module.exports = function (req, res) {
 	var locals = res.locals;
 
 	// Init locals
-	locals.section = 'blog';
+	locals.section = req.params.section == 'main' ? 'blog' : 'staff blog';
 	locals.filters = {
 		category: req.params.category,
 		section: req.params.section
 	};
 
-	console.log(locals.filters.section)
-
-
 	locals.data = {
 		posts: [],
 		categories: [],
+		section: req.params.section
 	};
 
 	// Load all categories
