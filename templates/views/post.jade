@@ -3,7 +3,7 @@ extends ../layouts/default
 block content
 	.container: .row: .col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2
 		article
-			p: a(href='/blog') &larr; back to the blog
+			p: a(href='/blog/' + data.post.section) &larr; back to the blog
 			hr
 			if !data.post
 				h2 Invalid Post.

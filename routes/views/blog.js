@@ -10,7 +10,12 @@ exports = module.exports = function (req, res) {
 	locals.section = 'blog';
 	locals.filters = {
 		category: req.params.category,
+		section: req.params.section
 	};
+
+	console.log(locals.filters.section)
+
+
 	locals.data = {
 		posts: [],
 		categories: [],
@@ -63,6 +68,7 @@ exports = module.exports = function (req, res) {
 			maxPages: 10,
 			filters: {
 				state: 'published',
+				section: locals.filters.section
 			},
 		})
 			.sort('-publishedDate')

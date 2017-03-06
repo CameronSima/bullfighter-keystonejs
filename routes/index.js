@@ -35,8 +35,8 @@ var routes = {
 exports = module.exports = function (app) {
 	// Views
 	app.get('/', routes.views.index);
-	app.get('/blog/:category?', routes.views.blog);
 	app.get('/blog/post/:post', routes.views.post);
+	app.get('/blog/:section/:category?', routes.views.blog);
 	app.all('/contact', routes.views.contact);
 	app.get('/trades', routes.views.allTrades);
 	app.get('/trades/sorted/:sortParam/:direction', routes.views.allTrades);
