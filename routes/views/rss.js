@@ -6,48 +6,43 @@ exports = module.exports = function(req, res) {
 
 	var view = new keystone.View(req, res);
 	var locals = res.locals;
-
-	locals.data = {
-		trades: []
-	}
-
-	view.on('init', function (next) {
-		keystone.list('Trade').model.find({}, function(err, result) {
-			console.log(err)
-			console.log(result)
-
-			next()
-
-		})
-
-		// q.exec(function(err, result) {
-		// 	console.log(result)
-		// 	console.log('khuhih')
-		// 	locals.data.trades = result
-		// 	next(err)
-		// })
-	})
+	var year = new Date().getFullYear();
 
 	var feed = new Feed({
-		title: 'the Bullfighter Trading RSS',
-		description: 'BFT Trade history feed',
-		author: 'thebullfightertrading.com'
-	})
-	console.log(locals.data.trades)
-	async.each(locals.data.trades, function(trade, next) {
-		console.log(trade)
-		console.log('ok')
-		feed.addItem({
-			title: trade.title,
-			id: trade._id,
-			published: trade.publishedDate,
-			notes: trade.content.notes
-		})
-		next()
+		title: 'the Bullfighter Blog RSS',
+		id: 'http://thebullfightertrading.com/',
+		link: 'http://thebullfightertrading.com/',
+		description: 'BFT Main Blog',
+		author: 'BFT',
+		copyright: 'All rights reserved ' + year + ', BFT',
+		updated: new Date(),
+
+		author: {
+			name: 'BFT',
+			email: 'thebullfightertrading@gmail.com'
+		}
 	})
 
-	// feed.addCategory('Stocks');
-	// feed.render('atom-1.0');
-	res.set('Content-Type', 'text/xml');
-  res.send(feed.xml());
+	var q = keystone.list('Post').model.find().where('state', 'published').sort('-publishedDate').populate('author')
+	q.exec(function (err, results) {
+		results.forEach(function(post) {
+			feed.addItem({
+				title: post.title,
+				id: post._id,
+				published: post.publishedDate,
+				body: post.content.extended,
+				categories: post.categories,
+				image: post.image,
+				author: post.author
+			})
+		})
+		console.log(feed)
+
+		feed.addCategory('Stocks');
+	  feed.render('rss-2.0');
+	  
+
+		// res.set('Content-Type', 'text/xml');
+	 //  res.send(feed);
+	})
 }
