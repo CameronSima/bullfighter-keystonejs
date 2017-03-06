@@ -52,14 +52,10 @@ Trade.schema.pre('save', function(next) {
 // Update User's balance, and add the balance to trade
 Trade.schema.pre('save', function(next) {
 
-	console.log(this.isNew)
-
 	// Only update balance if the this is a new trade.
 	if (!this.isNew) {
 		next()
 	}
-
-	
 
 	var self = this
 	keystone.list('User').model.findOne({
