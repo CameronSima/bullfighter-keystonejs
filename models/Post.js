@@ -15,14 +15,14 @@ Post.add({
 	title: { type: String, required: true },
 	state: { type: Types.Select, options: 'draft, published, archived', default: 'draft', index: true },
 	author: { type: Types.Relationship, ref: 'User', index: true },
-	publishedDate: { type: Types.Date, index: true, dependsOn: { state: 'published' } },
+	publishedDate: { type: Types.Date, index: true, utc: true, dependsOn: { state: 'published' } },
 	image: { type: Types.CloudinaryImage },
 	content: {
 		brief: { type: Types.Html, wysiwyg: true, height: 150 },
 		extended: { type: Types.Html, wysiwyg: true, height: 400 },
 	},
 	categories: { type: Types.Relationship, ref: 'PostCategory', many: true },
-	section: { type: Types.Select, options: 'main, staff', default: 'main', required: true, index: true }
+	section: { type: Types.Select, options: 'main, staff', default: 'main', required: true, initial: true, index: true }
 });
 
 Post.schema.virtual('content.full').get(function () {

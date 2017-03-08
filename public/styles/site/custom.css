@@ -31,3 +31,7 @@
 .post {
 	 font-family: Arial !important;
 }
+
+h1 {
+	text-transform: capitalize;
+}
