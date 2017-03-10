@@ -39,8 +39,7 @@ exports = module.exports = function(req, res) {
 		})
 
 		feed.addCategory('Stocks');
-		console.log(feed)
-
+		feed.addCategory('Blog');
 	  res.contentType('application/xml');
 	  res.write(feed.render('rss-2.0'))
 	  res.end()

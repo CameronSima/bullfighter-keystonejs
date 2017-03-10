@@ -3,30 +3,15 @@ extends ../layouts/default
 block content
 
 	div#chart_container
-		iframe(id='chart', src='https://docs.google.com/spreadsheets/d/1ri0yJW3ZuL5_MFlxM14KM3HxZv7IHUMe0ib5eZRFIoY/pubhtml?gid=1931162871&amp;single=true&amp;widget=true&amp;headers=false', seamless frameborder='0', width= '600px', height='500px', scrolling='no')
+		iframe(id='chart', src='https://docs.google.com/spreadsheets/d/1ri0yJW3ZuL5_MFlxM14KM3HxZv7IHUMe0ib5eZRFIoY/pubhtml?gid=1931162871&amp;single=true&amp;widget=true&amp;headers=false', seamless frameborder='0', width= '600px', height='400px', scrolling='no')
 
 	div#monthly_sheet_container
 		iframe(id='monthly_sheet', src='https://docs.google.com/spreadsheets/d/1g46PNwGe0tp35lNoOXjDeGvKKCY9LU4jxQ6HZyOu_8M/pubhtml?gid=1055437934&single=true')
 
-	div#spreadsheet_containter
+	div#spreadsheet_container
 		iframe(id='spreadsheet', src="https://docs.google.com/spreadsheets/d/10hzua7X2cxFAWqmspWjFo8C_UMXQip1TcyoGJ9Xeaw8/pubhtml?widget=true&amp;headers=false")
 
-	script.
-		var chart = document.getElementById('chart');
-		var spreadsheet = document.getElementById('spreadsheet');
-		var monthly_sheet = document.getElementById('monthly_sheet');
-		var iframeDocument;
-
-		[chart, spreadsheet, monthly_sheet].forEach(function(el) {
-			iframeDocument = el.contentDocument || el.contentWindow.document;
-			var iframeContent;
-			console.log(iframeDocument)
-
-			if(iframeDocument) {
-				iframeContent = iframeDocument.getElementById('footer');
-				iframeContent.style.display = none;
-			}
-		})
+	
 		
 
  

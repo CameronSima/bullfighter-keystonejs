@@ -42,7 +42,7 @@ exports = module.exports = function (app) {
 	app.get('/trades', routes.views.trades_spreadsheet);
 	app.get('/trades/sorted/:sortParam/:direction', routes.views.allTrades);
 	app.get('/trades/trade/:trade', routes.views.trade);
-	app.get('/trades/rss', routes.views.rss);
+	app.get('/rss/blog', routes.views.rss);
 
 
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:

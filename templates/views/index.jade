@@ -2,7 +2,8 @@ extends ../layouts/default
 
 block content
 	.container: .jumbotron
-		img(src='/images/bullogo.png', width='160')
+		div
+			img(id='logo', src='/images/bullogo.png', width='160')
 
 		div
 			div#main_title
@@ -10,13 +11,18 @@ block content
 				hr
 			div.link_logo.hidden-xs
 				a(href='https://www.instagram.com/the_bullfighter/')
-					img(src='/images/insta.png')
+					img(id='insta', src='/images/insta.png')
 			div.link_logo.hidden-xs
 				a(href='https://twitter.com/BFT_Trading')
-					img(src='/images/twitterlogo.png')
+					img(id='twitter', src='/images/twitterlogo.png')
 			div.link_logo.hidden-xs
 				a(href='https://stocktwits.com/TheBullfighter')
-					img(src='/images/st.png')
+					img(id='st', src='/images/st.png')
+			div.link_logo.hidden-xs
+				a(href='/rss/blog')
+					img(id='rss', src='/images/rsslogo.png')
+
+
 		p The BFT Project looks to encourage people to actively trade stocks. We demonstrate that with even $1000, you can make huge profits.
 
 		p Visit our trade tab to see our active and past trades, our trading blog for our thoughts on active and potential trades, and our staff blog for other various articles.
@@ -26,3 +32,17 @@ block content
 			a(href='https://twitter.com/BFT_Trading') Twitter 
 			| and 
 			a(href='https://www.instagram.com/the_bullfighter/') Instagram.
+
+		div
+			div.link_logo_mobile.visible-xs
+				a(href='https://www.instagram.com/the_bullfighter/')
+					img(id='insta', src='/images/insta.png')
+			div.link_logo_mobile.visible-xs
+				a(href='https://twitter.com/BFT_Trading')
+					img(id='twitter', src='/images/twitterlogo.png')
+			div.link_logo_mobile.visible-xs
+				a(href='https://stocktwits.com/TheBullfighter')
+					img(id='st', src='/images/st.png')
+			div.link_logo_mobile.visible-xs
+				a(href='/rss/blog')
+					img(id='rss', src='/images/rsslogo.png')
