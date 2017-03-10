@@ -35,3 +35,18 @@
 h1 {
 	text-transform: capitalize;
 }
+
+#spreadsheet {
+	width: 750px;
+	height: 300px;
+}
+
+#chart_container, #monthly_sheet_container, #spreadsheet_container {
+	overflow: hidden;
+	display: inline-block;
+	padding: 10px;
+}
+
+#monthly_sheet {
+	height: 500px;
+}

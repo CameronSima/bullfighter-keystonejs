@@ -22,7 +22,7 @@ Post.add({
 		extended: { type: Types.Html, wysiwyg: true, height: 400 },
 	},
 	categories: { type: Types.Relationship, ref: 'PostCategory', many: true },
-	section: { type: Types.Select, options: 'main, staff', default: 'main', required: true, initial: true, index: true }
+	section: { type: Types.Select, options: 'trading, staff', default: 'trading', required: true, initial: true, index: true }
 });
 
 Post.schema.virtual('content.full').get(function () {

@@ -1,6 +1,7 @@
 var keystone = require('keystone');
 var Feed = require('feed');
 var async = require('async');
+var striptags = require('striptags');
 
 exports = module.exports = function(req, res) {
 
@@ -30,19 +31,18 @@ exports = module.exports = function(req, res) {
 				title: post.title,
 				id: post._id,
 				published: post.publishedDate,
-				body: post.content.extended,
+				content: striptags(post.content.extended),
 				categories: post.categories,
 				image: post.image,
 				author: post.author
 			})
 		})
-		console.log(feed)
 
 		feed.addCategory('Stocks');
-	  feed.render('rss-2.0');
-	  
+		console.log(feed)
 
-		// res.set('Content-Type', 'text/xml');
-	 //  res.send(feed);
+	  res.contentType('application/xml');
+	  res.write(feed.render('rss-2.0'))
+	  res.end()
 	})
 }

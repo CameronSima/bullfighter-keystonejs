@@ -7,7 +7,7 @@ exports = module.exports = function (req, res) {
 	var locals = res.locals;
 
 	// Init locals
-	locals.section = req.params.section == 'main' ? 'blog' : 'staff blog';
+	locals.section = req.params.section == 'trading' ? 'trading blog' : 'staff blog';
 	locals.filters = {
 		category: req.params.category,
 		section: req.params.section
