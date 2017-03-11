@@ -30,7 +30,7 @@ Post.add({
 
 Post.schema.pre('save', function(next) {
 	var User = keystone.list('User').model
-	if (this.state === 'published' && this.email_sent === false) {
+	if (this.state === 'published' && this.email_sent !== true) {
 		this.email_sent = true;
 		mailer(this, User);
 		next();
