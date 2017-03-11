@@ -1,11 +1,11 @@
-const nodemailer = require('nodemailer');
+var nodemailer = require('nodemailer');
 var keystone = require('keystone');
 var _ = require('lodash');
 
 exports = module.exports = function (post, User) {
 	console.log(post)
 	// create reusable transporter object using the default SMTP transport
-	let transporter = nodemailer.createTransport({
+	var transporter = nodemailer.createTransport({
 	    service: 'gmail',
 	    auth: {
 	        user: 'thebullfightertrading@gmail.com',
@@ -16,7 +16,7 @@ exports = module.exports = function (post, User) {
 	function send(post, emailAddress) {
 		var postUrl = 'thebullfightertrading.com/blog/post/' + post.slug
 		// setup email data with unicode symbols
-		let mailOptions = {
+		var mailOptions = {
 	    from: '"the Bullfighter" <thebullfightertrading@gmail.com>', 
 	    to: emailAddress, 
 	    subject: post.email_subject_line || "Check out the Bullfighter's new blog post!", 
