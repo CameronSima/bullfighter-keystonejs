@@ -18,7 +18,8 @@ mixin post(post)
 				| by #{post.author.name.first}
 		if post.image.exists
 			a(href='/blog/post/' + post.slug)
-				img(src=post._.image.fit(160,160)).img.pull-right.blog_img
+				div.blog_img
+					img(src=post._.image.fit(160,160)).img.pull-right
 		p!= post.content.brief
 		if post.content.extended
 			p.read-more: a(href='/blog/post/' + post.slug) Read more...
