@@ -64,9 +64,13 @@ h1 {
 	height: 40px;
 }
 
-#subscription_box, .blog_img_container {
+#subscription_box {
 	display: inline-block;
 	float: right;
+}
+
+.blog_img_container {
+	display: inline-block;
 }
 
 
