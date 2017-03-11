@@ -9,6 +9,7 @@
     "keystone": "https://github.com/keystonejs/keystone.git",
     "lodash": "^4.13.1",
     "mongoose": "^4.7.0",
+    "nodemailer": "^3.1.5",
     "striptags": "^3.0.1"
   },
   "devDependencies": {

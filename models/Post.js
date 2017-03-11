@@ -1,4 +1,5 @@
 var keystone = require('keystone');
+var mailer = require('../scripts/mailer.js');
 var Types = keystone.Field.Types;
 
 /**
@@ -13,7 +14,9 @@ var Post = new keystone.List('Post', {
 
 Post.add({
 	title: { type: String, required: true },
+	email_subject_line: { type: String },
 	state: { type: Types.Select, options: 'draft, published, archived', default: 'draft', index: true },
+	email_sent: { type: Boolean, default: false, hidden: true },
 	author: { type: Types.Relationship, ref: 'User', index: true },
 	publishedDate: { type: Types.Date, index: true, utc: true, dependsOn: { state: 'published' } },
 	image: { type: Types.CloudinaryImage },
@@ -24,6 +27,16 @@ Post.add({
 	categories: { type: Types.Relationship, ref: 'PostCategory', many: true },
 	section: { type: Types.Select, options: 'trading, staff', default: 'trading', required: true, initial: true, index: true }
 });
+
+Post.schema.pre('save', function(next) {
+	var User = keystone.list('User').model
+	if (this.state === 'published' && this.email_sent === false) {
+		this.email_sent = true;
+		mailer(this, User);
+		next();
+	}
+	next();
+})
 
 Post.schema.virtual('content.full').get(function () {
 	return this.content.extended || this.content.brief;

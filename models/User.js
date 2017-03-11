@@ -13,7 +13,8 @@ User.add({
 	password: { type: Types.Password, initial: true, required: true },
 	balance: { type: Types.Money, format: '$0,0.00', default: 0 }
 }, 'Permissions', {
-	isAdmin: { type: Boolean, label: 'Can access Keystone', index: true }
+	isAdmin: { type: Boolean, label: 'Can access Keystone', index: true },
+	subscribed: { type: Boolean, default: true, index: true }
 });
 
 // Provide access to Keystone

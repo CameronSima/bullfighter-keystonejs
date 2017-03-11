@@ -42,6 +42,7 @@ exports = module.exports = function (app) {
 	app.get('/trades', routes.views.trades_spreadsheet);
 	app.get('/trades/sorted/:sortParam/:direction', routes.views.allTrades);
 	app.get('/trades/trade/:trade', routes.views.trade);
+	app.post('/subscribe', routes.views.subscribe);
 	app.get('/rss/blog', routes.views.rss);
 
 
