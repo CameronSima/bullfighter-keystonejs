@@ -25,5 +25,6 @@ block content
 							| by #{data.post.author.name.first}
 				.post
 					if data.post.image.exists
-						.image-wrap: img(src=data.post._.image.fit(750,450)).img-responsive
+						div.blog_img_container
+							.image-wrap: img(class="blog_img", src=data.post._.image.fit(750,450)).img-responsive
 					!= data.post.content.full
