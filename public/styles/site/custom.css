@@ -64,7 +64,7 @@ h1 {
 	height: 40px;
 }
 
-#subscription_box {
+#subscription_box, .blog_img_container {
 	display: inline-block;
 }
 
@@ -81,8 +81,8 @@ h1 {
 	}
 
 	#chart_container, #spreadsheet_container, #chart, #spreadsheet,
-	.blog_img {
-		width: 100%;
+	.blog_img, .blog_img_container {
+		width: 100% !important;
 	}
 
 }
