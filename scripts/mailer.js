@@ -3,7 +3,7 @@ var keystone = require('keystone');
 var _ = require('lodash');
 
 exports = module.exports = function (post, User) {
-	console.log(post)
+
 	// create reusable transporter object using the default SMTP transport
 	var transporter = nodemailer.createTransport({
 	    service: 'gmail',
@@ -42,8 +42,8 @@ exports = module.exports = function (post, User) {
 	User.find({
 		subscribed: true
 	}, function(err, users) {
+		console.log(users)
 		if (err) {
-			console.log(users)
 			console.log(err)
 		}
 
