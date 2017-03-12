@@ -38,23 +38,23 @@ exports = module.exports = function (post, User) {
 	}
 
 
-	var emails = [];
-	User.find({ subscribed: true })
-	.exec(function(err, users) {
-		console.log(users)
-		if (err) {
-			console.log(err)
-		}
-
-		async.forEach(users, function(user, callback) {
-			if (emails.indexOf(user.email) == -1) {
-				console.log(user.email)
-				emails.push(user.email)
-				send(post, user.email)
-				callback()					
-			}
+   var emails = [];
+	User.find({ subscribed: true },
+		(function(err, users) {
+	    console.log(users)
+	    if (err) {
+	        console.log(err)
+	    }  
+	    async.forEach(users, function(user, callback) {
+        if (emails.indexOf(user.email) == -1) {
+            console.log(user.email)
+            emails.push(user.email)
+            send(post, user.email)
+            callback()                  
+        }
+	    })
 		})
-	})
+	)
 }
 
 
