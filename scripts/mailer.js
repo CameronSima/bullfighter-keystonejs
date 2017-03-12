@@ -43,12 +43,14 @@ exports = module.exports = function (post, User) {
 		subscribed: true
 	}, function(err, users) {
 		if (err) {
+			console.log(users)
 			console.log(err)
 		}
 
 		_.each(users, function(user) {
 			setImmediate(function() {
 				if (emails.indexOf(user.email) == -1) {
+					console.log(user.email)
 					emails.push(user.email)
 					send(post, user.email)					
 				}
