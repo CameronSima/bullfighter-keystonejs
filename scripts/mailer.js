@@ -40,7 +40,7 @@ exports = module.exports = function (post, User) {
 
 	var emails = [];
 	User.find({
-		subscribed: true
+		
 	}, function(err, users) {
 		console.log(users)
 		if (err) {
