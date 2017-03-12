@@ -37,17 +37,16 @@ exports = module.exports = function (post, User) {
 		});
 	}
 
-
-   var emails = [];
+	// For some reason ({ subscribed: true }) only returns one User instead
+	// of all subscribers in production only, hence the following hack.
+  var emails = [];
 	User.find({},
 		function(err, users) {
-	    console.log(users)
 	    if (err) {
 	        console.log(err)
 	    }  
 	    async.forEach(users, function(user, callback) {
         if (emails.indexOf(user.email) == -1 && user.subscribed == true) {
-            console.log(user.email)
             emails.push(user.email)
             send(post, user.email)
             callback()                  
