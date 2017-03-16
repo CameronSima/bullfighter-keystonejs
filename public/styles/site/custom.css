@@ -1,3 +1,4 @@
+
 .read-more:hover {
 	cursor: pointer;
 	color: #e22620;
@@ -36,7 +37,8 @@
 }
 
 .post {
-	 font-family: Arial !important;
+	font-family: 'Open-sans', Arial !important;
+	font-size: 18px !important;
 }
 
 h1 {
